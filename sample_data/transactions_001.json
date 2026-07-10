@@ -1,0 +1,5 @@
+{"transaction_id":"T001","customer_id":"C001","transaction_date":"2026-07-10","amount":125.50,"currency":"EUR","status":"completed"}
+{"transaction_id":"T002","customer_id":"C002","transaction_date":"2026-07-10","amount":89.99,"currency":"EUR","status":"completed"}
+{"transaction_id":"T003","customer_id":"C001","transaction_date":"2026-07-11","amount":240.00,"currency":"EUR","status":"completed"}
+{"transaction_id":"T004","customer_id":"C003","transaction_date":"2026-07-11","amount":-20.00,"currency":"EUR","status":"failed"}
+{"transaction_id":null,"customer_id":"C004","transaction_date":"2026-07-11","amount":75.00,"currency":"EUR","status":"completed"}
