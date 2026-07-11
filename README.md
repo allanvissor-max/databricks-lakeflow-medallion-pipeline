@@ -91,44 +91,100 @@ databricks-lakeflow-medallion-pipeline/
 
 ## How to run
 
-1. Go to Databricks Volume Folder for the source files.
-```
-Databricks -> Catalog -> workspace
-└── default
-    └── Volumes
-        └── kafka_demo_files
-            └── transactions
-                └── transactions_001.json
+## How to Run
+
+### 1. Create a Databricks Volume
+
+Create a Databricks Volume for storing the source transaction files.
+
+Example location:
+
+```text
+/Volumes/workspace/default/kafka_demo_files/
 ```
 
-3. Upload the JSON files to a folder such as:
+Inside the Volume, create a folder for transaction files:
 
 ```text
 /Volumes/workspace/default/kafka_demo_files/transactions/
 ```
 
-3. Create a target schema:
+### 2. Upload the Sample Data
+
+Upload the sample JSON or JSONL transaction file to:
+
+```text
+/Volumes/workspace/default/kafka_demo_files/transactions/
+```
+
+The pipeline uses Databricks Auto Loader to detect and process files added to this folder.
+
+### 3. Create the Target Schema
+
+Run the following SQL command in Databricks:
 
 ```sql
 CREATE SCHEMA IF NOT EXISTS workspace.transactions_demo;
 ```
 
-4. Create a Databricks Lakeflow ETL pipeline.
+The pipeline tables will be created in this schema.
 
-5. Configure the pipeline target:
+### 4. Create a Lakeflow Declarative Pipeline
+
+In the Databricks workspace:
+
+1. Open **Lakeflow Declarative Pipelines**.
+2. Select **Create pipeline**.
+3. Configure the pipeline target:
 
 ```text
 Catalog: workspace
 Schema: transactions_demo
 ```
 
-6. Add the SQL from:
+### 5. Add the Pipeline Source Code
+
+Add the following SQL file to the pipeline:
 
 ```text
 pipeline/transactions_pipeline.sql
 ```
 
-7. Run the pipeline.
+The pipeline processes transaction data through the following Medallion Architecture layers:
+
+```text
+Source JSON files
+        ↓
+Bronze table
+        ↓
+Silver table
+        ↓
+Data quality validation
+        ↓
+Gold aggregation tables
+```
+
+### 6. Run the Pipeline
+
+Start the Lakeflow pipeline.
+
+After a successful run, the following tables should be available in:
+
+```text
+workspace.transactions_demo
+```
+
+Example tables:
+
+```text
+transactions_bronze
+transactions_silver
+transactions_quarantine
+transactions_gold
+```
+
+New files added to the source folder can be processed during subsequent pipeline runs.
+
 
 ## Output tables
 
