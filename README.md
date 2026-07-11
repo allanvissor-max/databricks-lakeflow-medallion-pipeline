@@ -91,9 +91,17 @@ databricks-lakeflow-medallion-pipeline/
 
 ## How to run
 
-1. Create a Databricks Volume for the source files.
+1. Go to Databricks Volume Folder for the source files.
+```
+Databricks -> Catalog -> workspace
+└── default
+    └── Volumes
+        └── kafka_demo_files
+            └── transactions
+                └── transactions_001.json
+```
 
-2. Upload the sample JSON file to a folder such as:
+3. Upload the JSON files to a folder such as:
 
 ```text
 /Volumes/workspace/default/kafka_demo_files/transactions/
